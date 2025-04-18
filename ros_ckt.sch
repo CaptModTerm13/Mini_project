@@ -118,6 +118,7 @@ N 340 -270 340 -260 {lab=Vin}
 N 340 -270 360 -270 {lab=Vin}
 N 1710 -350 1840 -350 {lab=vout}
 N 170 -300 170 -260 {lab=Vin}
+N 70 -230 70 -220 {lab=VDD}
 C {/usr/local/share/pdk/sky130B/libs.tech/xschem/sky130_fd_pr/pfet3_01v8.sym} 380 -390 0 0 {name=M3
 W=1
 L=0.15
@@ -468,13 +469,15 @@ C {lab_pin.sym} 730 -350 0 0 {name=p2 sig_type=std_logic lab=a}
 C {lab_pin.sym} 1080 -310 0 0 {name=p3 sig_type=std_logic lab=a}
 C {lab_pin.sym} 860 -600 0 0 {name=p4 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 840 -40 0 0 {name=p5 sig_type=std_logic lab=GND}
-C {vsource.sym} 70 -200 0 0 {name=VDD value=1.8 savecurrent=false}
-C {vsource.sym} 160 -200 0 0 {name=Vin value=1.3 savecurrent=false}
+C {vsource.sym} 160 -200 0 0 {name=Vin value=5 savecurrent=false}
 C {lab_pin.sym} 70 -290 1 0 {name=p6 sig_type=std_logic lab=VDD}
-C {code_shown.sym} 20 -620 0 0 {name=Trns_Analysis only_toplevel=false value= ".lib /usr/local/share/pdk/sky130A/libs.tech/ngspice/sky130.lib.spice tt
-.dc Vin 0 2 .1m 
-.tran .02n 10n 
-.save all 
+C {code_shown.sym} 80 -580 0 0 {name=Trns_Analysis only_toplevel=false value= "
+.lib /usr/local/share/pdk/sky130A/libs.tech/ngspice/sky130.lib.spice tt
+.tran 0.02n 200n
+.meas tran Tperiod TRIG v(Vout) VAL=0.5 RISE=1 TARG v(Vout) VAL=0.5 RISE=2
+.meas tran freq PARAM = '1/Tperiod'
+.save all
 .end"}
 C {lab_pin.sym} 1840 -350 2 0 {name=p7 sig_type=std_logic lab=vout}
 C {lab_pin.sym} 170 -300 1 0 {name=p8 sig_type=std_logic lab=Vin}
+C {vsource.sym} 70 -190 0 0 {name=VDD value=1.8 savecurrent=false}
